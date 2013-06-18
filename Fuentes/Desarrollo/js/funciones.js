@@ -1,18 +1,88 @@
 /* Funciones index.html */
 $(function() {
 
-		$( "#bOut" ).button();
-		$( "#bHome" ).button();
-		$( "#bMDatos" ).button();
-		$( "#regs" ).button();
-		$( "#inis" ).button();
+		$( "#btnLinkCM" ).button();
+		$( "#btnLinkMt" ).button();
+		$( "#btnValidar" ).button();
+		
+		$( "#btnCargar" ).button();
+		$( "#btnLimpiar" ).button();
+		
+		var oTabla = $('#tblResultados').dataTable({   
+         bJQueryUI: true,
+         sPaginationType: "full_numbers", //tipo de paginacion
+         "bFilter": true, // muestra el cuadro de busqueda
+         "iDisplayLength": 10, // cantidad de filas que muestra
+         "bLengthChange": false, // cuadro que deja cambiar la cantidad de filas
+         "oLanguage": { // mensajes y el idio,a
+	            "sLengthMenu": "Mostrar _MENU_ registros",
+	            "sZeroRecords": "No hay resultados",
+	            "sInfo": "Resultados del _START_ al _END_ de _TOTAL_ registros",
+	            "sInfoEmpty": "0 Resultados",
+	            "sInfoFiltered": "(filtrado desde _MAX_ registros)",
+	            "sInfoPostFix":    "",
+			    "sSearch":         "Buscar:",
+			    "sUrl":            "",
+			    "sInfoThousands":  ",",
+			    "sLoadingRecords": "Cargando...",
+			    "oPaginate": {
+			        "sFirst":    "Primero",
+			        "sLast":     "Último",
+			        "sNext":     "Siguiente",
+			        "sPrevious": "Anterior"
+			    }
+	        },
+	     "bProcessing": true, //para procesar desde servidor
+	     "sServerMethod": "POST",
+	     "sAjaxSource": './BuscaRegistros.php', // fuente del json
+	     "fnServerData": function ( sSource, aoData, fnCallback ) { // Para buscar con el boton
+            $.ajax( {
+                "dataType": 'json', 
+                "type": "POST", 
+                "url": sSource, 
+                "data": $('#FormRegUsu').serialize(), 
+                "success": fnCallback
+            	} );
+           }
+	  });
+	  // Hide the second column after initialisation
+	  //oTabla.fnSetColumnVis( 6, false );
+	  //oTabla.fnSetColumnVis( 7, false );
+	  
+	/*
+	$('#upFile').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+            data.context = $('<button/>').text('Cargar')
+                .appendTo(document.body)
+                .click(function () {
+                    data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                    data.submit();
+                });
+        },
+        done: function (e, data) {
+            data.context.text('Upload finished.');
+        },
+        progressall: function (e, data) {
+	        var progress = parseInt(data.loaded / data.total * 100, 10);
+	        $('#progress .bar').css(
+	            'width',
+	            progress + '%'
+	        );
+	    }
+    });*/
+	
+	// http://www.script-tutorials.com/pure-html5-file-upload/
+	// https://github.com/blueimp/jQuery-File-Upload/wiki/Basic-plugin
+	
+		/*
 		$( "#menuUl" ).menu();
 		$( "#btIniSes" ).button();
 		$( "#rFormRegUsuFecNac" ).datepicker({dateFormat: 'dd/mm/yy'});
 		$( "#btRegUsuGrabar" ).button();
 		$( "#btRegUsuLimpiar" ).button();
-		
-		/* Validaciones inicio de sesion */
+		*/
+		/* Validaciones inicio de sesion 
 		var fIS = $('#formIniciosSesion').validate({
 	                rules: {
 	                    FormIniSesUsuario: {required: true},
@@ -23,8 +93,8 @@ $(function() {
 	                    FormIniSesPass: {required: "Introduzca su contraseña"}
 	                }
 	         });
-         
-         /* Validaciones registro usuario */
+         */
+         /* Validaciones registro usuario 
 		var fRU = $('#formRegistroUsuario').validate({
 	                rules: {
 	                    rFormRegUsuUsuario: {required: true,
@@ -81,6 +151,7 @@ $(function() {
 		 	$( "#rFormRegUsuFecNac" ).val("");	
 		});
 		
+		
 		$( "#dIniciosSesion" ).dialog({
 			autoOpen: false,
 			width: 300,
@@ -93,24 +164,24 @@ $(function() {
 				 	$( "#FormIniSesPass" ).val("");			  
 				},
 		});
-
-		$( "#FormIniSesErr" ).dialog({
+		*/
+		$( "#dvMensajes" ).dialog({
 			autoOpen: false,
 			width: 300,
 			height: 260,
 			modal: true,
 			resizable: true
 		});
-		
+		/*
 		$("#regs").button().click( function() {
 		    $( "#dRegistroUsuario" ).dialog( "open" );
 		});
 		
 		$("#inis").button().click( function() {
 		    $( "#dIniciosSesion" ).dialog( "open" );
-		});
+		});*/
          
-         /* Submit para el inicio de sesion */
+         /* Submit para el inicio de sesion 
          $('#formIniciosSesion').submit(function(event){
          	event.preventDefault();
          	if($('#formIniciosSesion').valid())
@@ -135,9 +206,9 @@ $(function() {
 				   	}
 				   });
          	}
-         });
+         });*/
          
-         /* Submit para el registro de usuario */
+         /* Submit para el registro de usuario 
          $('#formRegistroUsuario').submit(function(event){
          	event.preventDefault();
          	if($('#formRegistroUsuario').valid())
@@ -156,26 +227,26 @@ $(function() {
 				   		$('#FormIniSesErr').dialog( "open" );
 				   });
          	}
-         });
+         });*/
 
-        /* Boton para cerrar sesion */
+        /* Boton para cerrar sesion 
         $( "#bOut" ).button().click( function() {
             window.location.href = "IniSes/logout.php";
         });
-        
-        /* Boton para abrir el main */
+        */
+        /* Boton para abrir el main 
         $( "#bMDatos" ).button().click( function() {
             window.location.href = "main.php";
-        });
+        });*/
         
-        /* Boton para abrir el index */
+        /* Boton para abrir el index *
         $( "#bHome" ).button().click( function() {
             window.location.href = "index.php";
         });
-		
+		/
 	});
 
-/* Funcion para el scroll */
+/* Funcion para el scroll 
 $(function() {
 	
 		// the element we want to apply the jScrollPane
@@ -216,10 +287,6 @@ $(function() {
 					// hide the jScrollPane vertical bar
 					var $vBar			= this.getContentPane().siblings('.jspVerticalBar').hide();
 					
-					/*
-					 * mouseenter / mouseleave events on the main element
-					 * also scrollstart / scrollstop - @James Padolsey : http://james.padolsey.com/javascript/special-scroll-events-for-jquery/
-					 */
 					$el.bind('mouseenter.jsp',function() {
 						
 						// show the scrollbar
@@ -320,5 +387,6 @@ $(function() {
 		// extend the jScollPane by merging	
 		$.extend( true, jspapi, extensionPlugin );
 		jspapi.addHoverFunc();
-	
+		*/
 	});
+	

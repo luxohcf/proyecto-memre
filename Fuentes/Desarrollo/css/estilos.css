@@ -83,7 +83,19 @@
 {
 	width: 100%;
 }
+#contenido{
+	position: relative;
+	float: right;
+	text-align: justify;
+	width: 1000px;
+	top: 10px;
+	left: -10px;
+}
 
+.bar {
+    height: 18px;
+    background: green;
+}
 
 /* formulario inicio de sesion */
 
