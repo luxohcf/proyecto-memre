@@ -84,7 +84,7 @@ create table TMM_TEMPORAL
    TEM_NOMBRE           varchar(255),
    TEM_ANNO             int,
    TEM_BIP              int,
-   TEM_FUENTE           int not null,
+   TEM_FUENTE           varchar(4),
    TEM_ETAPA            varchar(255),
    TEM_CUENTA           bigint,
    TEM_ENERO            bigint,
@@ -99,8 +99,9 @@ create table TMM_TEMPORAL
    TEM_OCTUBRE          bigint,
    TEM_NOVIEMBRE        bigint,
    TEM_DICIEMBRE        bigint,
-   TEM_UNI_TEC          bigint,
+   TEM_UNI_TEC          varchar(255),
    TEM_NUMERO_COLUMNA   bigint,
+   TEM_ERRORES          varchar(5000)
    primary key (HIS_ID)
 );
 

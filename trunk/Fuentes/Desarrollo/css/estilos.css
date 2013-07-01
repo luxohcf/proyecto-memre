@@ -7,7 +7,7 @@
 #principal {
     display: block;
     width: 1024px;
-    height: 650px;
+    height: 750px;
     padding: 0;
     background: white;
     margin: 3px auto 3px auto;
@@ -32,7 +32,7 @@
   font-size: 13px;
 }
 #container {
-  height: 562px;
+  height: 662px;
   color: #000000;
   background: #FFFFFF;
   font-family: Arial, Verdana, sans-serif;
@@ -136,7 +136,30 @@ input.error { border: 2px inset red; }
 }
 
 
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                50% 50% 
+                no-repeat;
+}
 
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
 
 
 
