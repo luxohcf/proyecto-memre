@@ -30,7 +30,7 @@ if($mySqli->affected_rows > 0)
                             $row['TEM_NUMERO_COLUMNA'], //N° Columna
                             $row['TEM_ANNO'], // Año
                             substr($row['TEM_NOMBRE'], 0, 15)."...", // Nombre
-                            htmlentities($row['TEM_ETAPA']), // Etapa
+                            $row['TEM_ETAPA'], // Etapa
                             $row['TEM_CUENTA'], // Cuenta
                             $row['TEM_UNI_TEC'], // Unidad Tecnica
                             $row['HIS_ID'] // Id
@@ -45,16 +45,10 @@ $aa = array(
         "iTotalDisplayRecords" => 0,
         'aaData' => $aaData);
 
-if($depurar) // Detalle http://localhost:8080/proyecto-memre/Fuentes/Desarrollo/Modulos/CargaMasiva/BuscaRegistros.php
+if($depurar)
 {
     echo "<span>";
     echo var_dump($aaData);
-    echo "</span>";
-    echo "<span>";
-    //echo var_dump($Info_usuario);
-    echo "</span>";
-    echo "<span>";
-    //echo var_dump($aErrores);
     echo "</span>";
     echo "<span>";
     echo var_dump($aa);

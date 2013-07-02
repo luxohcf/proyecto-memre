@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(TRUE);
-
+set_time_limit(0);
 require_once("comunes.php");
 /* Archivo de configuracion */
 //$url = $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];

@@ -1,5 +1,4 @@
 <?php
-//error_reporting(E_ALL ^ E_NOTICE);
 require("../../config/parametros.php");
 require_once("../../config/excel_reader2.php");
 //http://localhost:8080/proyecto-memre/Fuentes/Desarrollo/Modulos/CargaMasiva/ValidarArchivo.php
@@ -28,12 +27,13 @@ if(isset($data[0]))
             $mySqli = new mysqli($V_HOST, $V_USER, $V_PASS, $V_BBDD);
             $delete = "DELETE FROM TMM_TEMPORAL";
             $res = $mySqli->query($delete);
-
+			$mySqli->query("SET CHARSET 'utf8'");
+			$mySqli->query("SET NAMES 'cp1250'");
             $filas = $excel->rowcount();
             $columnas = $excel->colcount();
             
             for($x = 2; $x < $filas +1; $x++){ // por cada fila, parto de la 2
-                //for($y = 1; $y < $columnas + 1; $y++){ // por cada columna de la fila x
+
                 $errores = null;
                 $errores = array();
                 $mySqli = new mysqli($V_HOST, $V_USER, $V_PASS, $V_BBDD);
@@ -62,7 +62,8 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 1); //   FUENTE – Caracteres, longitud máxima 4
                 
-                if (!(is_string($temp) && strlen($temp) < 5 ) ){
+                //if (!(is_string($temp) && strlen($temp) < 5 ) ){
+                if (!(validarTipoDato($temp, 'Caracteres', 10))){
                     $errores[] = $COLUMNAS_MSJ[0];
                     $insert .= "'',";
                 }
@@ -72,7 +73,8 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 2); //   BIP – Numérico, mayor a 0 sin decimales, longitud máxima    10
                 
-                if (!(is_int($temp) && strlen($temp) < 11 && intval($temp) > 0) ){
+                //if (!(is_int($temp) && strlen($temp) < 11 && intval($temp) > 0) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[1];
                     $insert .= "null,";
                 }
@@ -82,7 +84,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 3); //   ETAPA – Caracteres, longitud máxima 255
                 
-                if (!(is_string($temp) && strlen($temp) < 256 ) ){
+                if (!(validarTipoDato($temp, 'Caracteres', 255))){
                     $errores[] = $COLUMNAS_MSJ[2];
                     $insert .= "'',";
                 }
@@ -92,7 +94,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 4); //   CUENTA  – Numérico, mayor a 0 sin decimales, longitud máxima    10
                 
-                if (!(is_int($temp) && strlen($temp) < 11 && $temp > 0) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[3];
                     $insert .= "null,";
                 }
@@ -102,7 +104,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 5); //   NOMBRE – Caracteres, longitud máxima 255
                 
-                if (!(is_string($temp) && strlen($temp) < 256 && strlen($temp) > 0) ){
+                if (!(validarTipoDato($temp, 'Caracteres', 255))){
                     $errores[] = $COLUMNAS_MSJ[4];
                     $insert .= "'',";
                 }
@@ -111,8 +113,8 @@ if(isset($data[0]))
                 }
                 
                 $temp = $excel->value($x, 6); //   ENERO – Numérico, mayor a 0 sin decimales, longitud máxima  10
-                //$insert .= "$temp,";
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[5];
                     $insert .= "null,";
                 }
@@ -122,7 +124,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 7); //   FEBRERO – Numérico, mayor a 0 sin decimales, longitud máxima    10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[6];
                     $insert .= "null,";
                 }
@@ -132,7 +134,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 8); //   MARZO – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[7];
                     $insert .= "null,";
                 }
@@ -142,7 +144,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 9); //   ABRIL – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[8];
                     $insert .= "null,";
                 }
@@ -152,7 +154,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 10); //   MAYO – Numérico, mayor a 0 sin decimales, longitud máxima   10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[9];
                     $insert .= "null,";
                 }
@@ -162,7 +164,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 11); //   JUNIO – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[10];
                     $insert .= "null,";
                 }
@@ -172,7 +174,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 12); //   JULIO – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[11];
                     $insert .= "null,";
                 }
@@ -182,7 +184,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 13); //   AGOSTO – Numérico, mayor a 0 sin decimales, longitud máxima     10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[12];
                     $insert .= "null,";
                 }
@@ -192,7 +194,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 14); //   SEPTIEMBRE – Numérico, mayor a 0 sin decimales, longitud máxima     10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[13];
                     $insert .= "null,";
                 }
@@ -202,7 +204,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 15); //   OCTUBRE – Numérico, mayor a 0 sin decimales, longitud máxima    10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[14];
                     $insert .= "null,";
                 }
@@ -212,7 +214,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 16); //   NOVIEMBRE – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[15];
                     $insert .= "null,";
                 }
@@ -222,7 +224,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 17); //   DICIEMBRE – Numérico, mayor a 0 sin decimales, longitud máxima  10
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 11 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 9))){
                     $errores[] = $COLUMNAS_MSJ[16];
                     $insert .= "null,";
                 }
@@ -232,7 +234,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 18); //   UNIDAD TECNICA – Caracteres, longitud máxima 255
                 
-                if (!(is_string($temp) && strlen($temp) < 256 ) ){
+                if (!(validarTipoDato($temp, 'Caracteres', 255))){
                     $errores[] = $COLUMNAS_MSJ[17];
                     $insert .= "'',";
                 }
@@ -242,7 +244,7 @@ if(isset($data[0]))
                 
                 $temp = $excel->value($x, 19); // ANNIO - Numérico, mayor a 0 sin decimales, longitud máxima  4
                 
-                if (!(is_int(intval($temp)) && strlen($temp) < 5 && intval($temp) > -1 ) ){
+                if (!(validarTipoDato($temp, 'Numerico', 3))){
                     $errores[] = $COLUMNAS_MSJ[18];
                     $insert .= "null,";
                 }
@@ -252,7 +254,7 @@ if(isset($data[0]))
                 
                 // Insertar el registros
                 $insert .= "$x,";
-                $insert .= "'". implode("</br>", $errores) . "')";
+                $insert .= "'". implode("#", $errores) . "')";
                 
                 if($mySqli->connect_errno)
                 {
@@ -261,8 +263,22 @@ if(isset($data[0]))
                 $msg .= " - $insert - ";
                 $res = $mySqli->query($insert);
             }
-            // al final borrar el archivo
-            //@unlink($data[0]);
+            
+			// consultar si hay errores
+			$query_select = "SELECT 1 FROM TMM_TEMPORAL WHERE TEM_ERRORES != ''";
+			
+			$mySqli->query($query_select);
+			if($mySqli->affected_rows > 0)
+			{
+				$msg = "Hay columnas que no cumplen con el formato, favor revisar el archivo e intentar nuevamente";
+				$data["estado"] = "KO";
+			}
+			else{
+				$msg = "Todos los datos se encuentran correctos!";
+				$data["estado"] = "OK";
+			}
+			
+            @unlink($data[0]);
     }
     else{
         @unlink($data[0]);

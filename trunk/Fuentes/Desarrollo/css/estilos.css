@@ -132,7 +132,9 @@ input.error { border: 2px inset red; }
 }
 
 #dMsg{
-	color: red; font-style: italic;
+	color: #FFFFFF; font-style: italic;
+	/*font-size: 16px;*/
+	text-align: left;
 }
 
 
@@ -144,7 +146,7 @@ input.error { border: 2px inset red; }
     left:       0;
     height:     100%;
     width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
+    background: #003147 
                 50% 50% 
                 no-repeat;
 }
@@ -159,7 +161,26 @@ body.loading {
    modal element will be visible */
 body.loading .modal {
     display: block;
+    
 }
 
+.noclose .ui-dialog-titlebar-close
+{
+    display:none;
+}
 
+#tblDetalle{
+	font-style: italic;
+	font-size: 12px;
+	border: 1px solid #666666;
+}
+
+#tblDetalle TD{
+	border: 1px solid #666666;
+}
+
+.styleTable { border-collapse: separate; }
+.styleTable TD { font-weight: normal !important; padding: .4em; border-top-width: 0px !important; }
+.styleTable TH { text-align: center; padding: .8em .4em; }
+.styleTable TD.first, .styleTable TH.first { border-left-width: 0px !important; }
 

@@ -1,11 +1,18 @@
 /* Funciones index.html */
 $(function() {
+	
+	    // Limpio los temporales
+		$.post("./Limpiar.php",// $('#FormRegUsu').serialize(),
+			function(data) {
+			var obj = jQuery.parseJSON(data);
+	    });
 
 		$( "#btnLinkCM" ).button();
 		$( "#btnLinkMt" ).button();
 		$( "#btnValidar" ).button();
 		
 		$( "#btnCargar" ).button();
+		$( "#btnCargar" ).button("option", "disabled", true );
 		$( "#btnLimpiar" ).button();
 		
 		$( "#btnLinkMt" ).click(function(){
@@ -13,7 +20,6 @@ $(function() {
 		});
 		
 		var up = $("#uploader").plupload({
-	        // General settings ../../js/plupload/examples/upload.php
 	        runtimes : 'html5',
 	        url : '../CargaMasiva/upload.php',
 	        max_file_size : '4mb',
@@ -22,7 +28,6 @@ $(function() {
 	        multi_selection: false,
 	        max_file_count:1,
 	        multiple_queues : false,
-	        // Specify what files to browse for
 	        filters : [
 	            {title : "Excel files", extensions : "xls,xlsx"}
 	        ]
@@ -35,7 +40,7 @@ $(function() {
 		var oTabla = $('#tblResultados').dataTable({   
          bJQueryUI: true,
          sPaginationType: "full_numbers", //tipo de paginacion
-         "bFilter": true, // muestra el cuadro de busqueda
+         "bFilter": false, // muestra el cuadro de busqueda
          "iDisplayLength": 4, // cantidad de filas que muestra
          "bLengthChange": false, // cuadro que deja cambiar la cantidad de filas
          "oLanguage": { // mensajes y el idio,a
@@ -70,6 +75,58 @@ $(function() {
            }
 	  });
 	  
+	  $( "#btnLimpiar" ).click(function(){
+			$.post("./Limpiar.php",// $('#FormRegUsu').serialize(),
+					   function(data) {
+					   	var obj = jQuery.parseJSON(data);
+
+				   		$('#dMsg').html( obj.html );
+				   		$('#dvMensajes').dialog( "open" );
+				   		
+				   		oTabla.fnReloadAjax();
+			   });
+	  });
+	 
+	  
+	  $( "#btnCargar" ).click(function(){
+	  	
+	  	 $( "#btnCargar" ).button( "option", "disabled", true );
+	  	 $.post("./Cargar.php", // $('#FormRegUsu').serialize(),
+			   function(data) {
+			   	var obj = jQuery.parseJSON(data);
+
+		   		$('#dMsg').html( obj.html );
+		   		if(obj.estado == 'KO'){
+		   			$('#dMsg').html(obj.errores);
+		   		}
+		   		$('#dvMensajes').dialog( "open" );
+		   		
+		   		oTabla.fnReloadAjax();
+	    });
+	  });
+	  
+	  $('#dvLoading' ).dialog({
+	  	    autoOpen: false,
+			width: 300,
+			height: 260,
+			modal: true,
+			resizable: false,
+			beforeclose: function (event, ui) { return false; },
+    		dialogClass: "noclose"
+	  });
+	  
+	  /*$("#loadingImg").progressbar({
+	      value: 100
+	  });*/
+	  
+	  $('#divDetalle' ).dialog({
+	  	    autoOpen: false,
+			width: 1200,
+			height: 250,
+			modal: true,
+			resizable: true
+	  });
+	  
 	  $('#confirmG' ).dialog({
 			autoOpen: false,
 			width: 300,
@@ -84,6 +141,10 @@ $(function() {
 						   	var obj = jQuery.parseJSON(data);
 
 					   		$('#dMsg').html( obj.html );
+					   		var estado =  obj.estado;
+					   		if(estado == 'OK'){
+					   			$( "#btnCargar" ).button( "option", "disabled", false );
+					   		}
 					   		$('#dvMensajes').dialog( "open" );
 					   		
 					   		oTabla.fnReloadAjax();
@@ -94,37 +155,42 @@ $(function() {
 		        "Cancelar" : function() {
 		          $(this).dialog("close");
 	        	}}
-		});
-		
-	  // Hide the second column after initialisation
+	  });
 	  oTabla.fnSetColumnVis( 8, false );
-	  //oTabla.fnSetColumnVis( 7, false );
 	
 
-		$("body").on({
+	  $("body").on({
 		    ajaxStart: function() { 
-		        $(this).addClass("loading"); 
+		        $(this).addClass("loading");
+		        //$("#loadingImg" ).progressbar( "enable" );
+		        $('#dvLoading').dialog( "open" );
 		    },
 		    ajaxStop: function() { 
 		        $(this).removeClass("loading"); 
+		        $('#dvLoading').dialog( "close" );
 		    }    
-		});
-		$( "#dvMensajes" ).dialog({
+	  });
+		
+	  $( "#dvMensajes" ).dialog({
 			autoOpen: false,
-			width: 700,
+			width: 500,
 			height: 500,
 			modal: true,
 			resizable: false
-		});
+	  });
+		
+		
+	  $("#tblDetalle").styleTable();
 		
 	});
+	
+	// Para recargar la tabla
 	$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
 	{
 	    if ( typeof sNewSource != 'undefined' && sNewSource != null ) {
 	        oSettings.sAjaxSource = sNewSource;
 	    }
 	 
-	    // Server-side processing should just call fnDraw
 	    if ( oSettings.oFeatures.bServerSide ) {
 	        this.fnDraw();
 	        return;
@@ -138,10 +204,8 @@ $(function() {
 	    this.oApi._fnServerParams( oSettings, aData );
 	      
 	    oSettings.fnServerData.call( oSettings.oInstance, oSettings.sAjaxSource, aData, function(json) {
-	        /* Clear the old information from the table */
 	        that.oApi._fnClearTable( oSettings );
 	          
-	        /* Got the data - add it to the table */
 	        var aData =  (oSettings.sAjaxDataProp !== "") ?
 	            that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
 	          
@@ -164,7 +228,6 @@ $(function() {
 	          
 	        that.oApi._fnProcessingDisplay( oSettings, false );
 	          
-	        /* Callback user function - for event handlers etc */
 	        if ( typeof fnCallback == 'function' && fnCallback != null )
 	        {
 	            fnCallback( oSettings );
@@ -172,12 +235,45 @@ $(function() {
 	    }, oSettings );
 	};
 	
+	// Para el estilo de la tabla de detalle
+	(function ($) {
+        $.fn.styleTable = function (options) {
+            var defaults = {
+                css: 'styleTable'
+            };
+            options = $.extend(defaults, options);
+
+            return this.each(function () {
+
+                input = $(this);
+                input.addClass(options.css);
+
+                input.find("tr").live('mouseover mouseout', function (event) {
+                    if (event.type == 'mouseover') {
+                        $(this).children("td").addClass("ui-state-hover");
+                    } else {
+                        $(this).children("td").removeClass("ui-state-hover");
+                    }
+                });
+
+                input.find("th").addClass("ui-state-default");
+                input.find("td").addClass("ui-widget-content");
+
+                input.find("tr").each(function () {
+                    $(this).children("td:not(:first)").addClass("first");
+                    $(this).children("th:not(:first)").addClass("first");
+                });
+            });
+        };
+    })(jQuery);
+    
+	
 	function verDetalle(id){
 		$.post("./BuscarDetalle.php", {ID : id},
 		   function(data) {
 		   	var obj = jQuery.parseJSON(data);
-	   		$('#dMsg').html( obj.html );
-	   		$('#dvMensajes').dialog( "open" );
+	   		 $('#divDetalleTb').html( obj.html );
+	   		 $('#divDetalle' ).dialog( "open" );
 		 });
 	}
 	

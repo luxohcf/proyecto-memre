@@ -28,7 +28,27 @@ if($mySqli->affected_rows > 0)
 {
     while($row = $res->fetch_assoc())
     {
-        $data[] = array();
+        $msg .=  "<tr>
+                  <td>".$row["TEM_FUENTE"]."</td>
+                  <td>".$row["TEM_BIP"]."</td>
+                  <td>".$row["TEM_ETAPA"]."</td>
+                  <td>".$row["TEM_CUENTA"]."</td>
+                  <td>".$row["TEM_NOMBRE"]."</td>
+                  <td>".$row["TEM_ENERO"]."</td>
+                  <td>".$row["TEM_FEBRERO"]."</td>
+                  <td>".$row["TEM_MARZO"]."</td>
+                  <td>".$row["TEM_ABRIL"]."</td>
+                  <td>".$row["TEM_MAYO"]."</td>
+                  <td>".$row["TEM_JUNIO"]."</td>
+                  <td>".$row["TEM_JULIO"]."</td>
+                  <td>".$row["TEM_AGOSTO"]."</td>
+                  <td>".$row["TEM_SEPTIEMBRE"]."</td>
+                  <td>".$row["TEM_OCTUBRE"]."</td>
+                  <td>".$row["TEM_NOVIEMBRE"]."</td>
+                  <td>".$row["TEM_DICIEMBRE"]."</td>
+                  <td>".$row["TEM_UNI_TEC"]."</td>
+                  <td>".$row["TEM_ANNO"]."</td>
+                  </tr>";
     }
 }
 

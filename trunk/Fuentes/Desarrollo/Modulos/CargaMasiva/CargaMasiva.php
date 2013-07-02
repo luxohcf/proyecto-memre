@@ -1,9 +1,9 @@
 <?php
-//require("../../config/parametros.php");
+require("../../config/parametros.php");
 
 ?>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
     <title>Carga Masiva</title>
@@ -11,14 +11,6 @@
     <link href="../../css/estilos.css" rel="stylesheet">
     <script src="../../js/jquery-1.8.2.js"></script>
     <script src="../../js/jquery-ui-1.9.1.custom.js"></script>
-    <!-- JScrollable 
-    <link rel="stylesheet" type="text/css" href="../../css/style.css" /> 
-    <link rel="stylesheet" type="text/css" href="../../css/jquery.jscrollpane.codrops1.css" /> -->
-    <!-- the mousewheel plugin 
-    <script type="text/javascript" src="../../js/jquery.mousewheel.js"></script> -->
-    <!-- the jScrollPane script 
-    <script type="text/javascript" src="../../js/jquery.jscrollpane.min.js"></script>
-    <script type="text/javascript" src="../../js/scroll-startstop.events.jquery.js"></script> -->
     <!-- DataTable plugin -->
     <script type="text/javascript" src="../../js/DT/jquery.dataTables.js"></script>
     <style type="text/css" title="currentStyle">
@@ -27,12 +19,10 @@
         @import "../../css/DT/demo_table_jui.css";
         @import "../../css/DT/jquery.dataTables_themeroller.css";
     </style>
-    <!-- validate Plugin -->
+    <!-- validate Plugin 
     <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../../js/additional-methods.min.js"></script>
-    <!-- Upload Plugin 
-    <script type="text/javascript" src="../../js/jQuery-File-Upload-8.3.2/js/jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="../../js/jQuery-File-Upload-8.3.2/js/jquery.fileupload.js"></script> -->
+    <script type="text/javascript" src="../../js/additional-methods.min.js"></script> -->
+
     <!-- Load plupload and all it's runtimes and finally the jQuery UI queue widget --> 
     <style type="text/css">@import url(../../js/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css);</style>
     <script type="text/javascript" src="../../js/plupload/js/plupload.full.js"></script>
@@ -41,12 +31,6 @@
 
     <!-- Funciones de la pagina -->
     <script type="text/javascript" src="../../js/funciones.js"></script>
-    <script type="text/javascript">
-        
-    // http://localhost:8080/proyecto-memre/Fuentes/Desarrollo/Modulos/CargaMasiva/CargaMasiva.php
-    
-    
-    </script>
 </head>
 <body>
 <div id="principal">
@@ -59,19 +43,13 @@
     </div>
     <div id="container">
         <div id="contenido">
-           <!-- <h4>Carga Masiva</h4> -->
            <div>&nbsp;</div>
            <form id="FormRegUsu">
                <div id="uploader">
-                 <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+                 <p>Tu explorador no soporta esta aplicación</p>
                </div>
            </form>
 
-           <!-- div id="dvUpload">
-               <label for="upFile">Archivo: </label>
-               <input type="file" id="upFile"/>
-               <input type="button" value="Validar" id="btnValidar" />
-           </div -->
            <div>&nbsp;</div>
             <input type="button" value="Validar" id="btnValidar" />
            <div>&nbsp;</div>
@@ -79,7 +57,7 @@
                <table id="tblResultados">
                     <thead>
                         <tr>
-                            <th style="width: 10px;">Ver</th>
+                            <th>Ver</th>
                             <th>Estado</th>
                             <th>N° Columna</th>
                             <th>Año</th>
@@ -111,11 +89,29 @@
     <div id="dMsg">
     </div>
 </div>
-<div class="modal" style="text-align: center">
+<div id="dvLoading" class="modal" style="text-align: center">
+	<p>Espere un momento mientras se realiza la acción</p>
+	<div>&nbsp;</div>
     <img src="../../css/ajax-loader.gif" />
 </div>
 <div id="confirmG">
     Se va a validar el archivo
 </div>
+<div id="divDetalle" style="display: none" >
+	<table id="tblDetalle">
+		<thead>
+	        <tr>
+	            <?php
+	             foreach ($COLUMNAS as $value) {
+					echo "<th>$value</th>";	 
+				 }
+	            ?>
+	        </tr>
+	    </thead>
+	    <tbody id="divDetalleTb">
+	    </tbody>
+    </table>
+</div>
+
 </body>
 </html>

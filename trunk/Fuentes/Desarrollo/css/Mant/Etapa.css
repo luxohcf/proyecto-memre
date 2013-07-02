@@ -16,9 +16,7 @@
 	width: 90%;
 }
 
-#FormRegUsuIDUsu,#FormRegUsuNomUsu,#FormRegUsuActivo,
-#FormRegUsuPass1, #FormRegUsuPass2,#FormRegUsuEmail,
-#FormRegUsuFecNac,#FormRegUsuDesc,#FormRegUsuGrupo{
+#FormRegUsuIDUsu,#FormRegUsuNomUsu{
 	background: #9A9A9A;
 	color: black;
 	width: 100%;

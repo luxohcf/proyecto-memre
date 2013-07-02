@@ -1,9 +1,9 @@
 $(function() {
 		
 		$( "#menuUl" ).menu();
-		$( "#bOut" ).button();
-		$( "#bHome" ).button();
-		$( "#bMDatos" ).button();
+		$( "#btnLinkCM" ).button();
+		$( "#btnLinkMt" ).button();
+		
 
 		/* Dialogo de mensajes */
 		$( "#FormIniSesErr" ).dialog({
@@ -15,32 +15,39 @@ $(function() {
 		});
 
         /* Boton para cerrar sesion */
-        $( "#bOut" ).button().click( function() {
-            window.location.href = "IniSes/logout.php";
+        $( "#btnLinkCM" ).button().click( function() {
+            document.location.href = "../CargaMasiva/CargaMasiva.php";
         });
+
         
-        /* Boton para abrir el main */
-        $( "#bMDatos" ).button().click( function() {
-            window.location.href = "main.php";
-        });
+        $('#dvLoading' ).dialog({
+	  	    autoOpen: false,
+			width: 300,
+			height: 260,
+			modal: true,
+			resizable: false,
+			beforeclose: function (event, ui) { return false; },
+    		dialogClass: "noclose"
+	    });
         
-        /* Boton para abrir el index */
-        $( "#bHome" ).button().click( function() {
-            window.location.href = "index.php";
-        });
-        
+        $("body").on({
+		    ajaxStart: function() { 
+		        $(this).addClass("loading");
+		        $('#dvLoading').dialog( "open" );
+		    },
+		    ajaxStop: function() { 
+		        $(this).removeClass("loading"); 
+		        $('#dvLoading').dialog( "close" );
+		    }    
+	    });
+	  
 	});
 
 	function cambiarContenido(item)
 	{
 		document.getElementById('P').style.display='none';
-		document.getElementById('S').style.display='none';
 		document.getElementById('A').style.display='none';
 		document.getElementById('C').style.display='none';
-		document.getElementById('F').style.display='none';
-		document.getElementById('E').style.display='none';
-		document.getElementById('D').style.display='none';
-		document.getElementById('T').style.display='none';
 		document.getElementById(item).style.display='block';
 	};
 
