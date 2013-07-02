@@ -37,8 +37,50 @@ function validarExcel($excel, $columnas, &$errores){
 
 function validarTipoDato($dato,$tipo,$longitud){
     
-    // Pendiente
+    $flag = true;
+    switch ($tipo) {
+        case 'Numerico': //  /^[1-9][0-9]{0,15}$/
+            if(is_numeric($dato)){
+            	$reg = "/^[0-9][0-9]{0,$longitud}$/";
+            	if(!preg_match($reg, $dato)){
+            		$flag = false;
+            	}
+            }
+			else{
+				$flag = false;
+			}
+            break;
+		case 'Caracteres':
+            if(is_string($dato)){
+            	if(strlen(trim($dato)) > 0){
+            		if(strlen(trim($dato)) > $longitud){
+            			$flag = false;
+            		}
+            	}
+				else{
+					$flag = false;
+				}
+            }
+			else{
+				$flag = false;
+			}
+            break;
+        default:
+            break;
+    }
     
-    return true;
+    return $flag;
+}
+$depurar = false;
+
+if($depurar){
+	$temp = "20075928";
+	echo "<span>";
+	echo var_dump($temp);
+	echo "</span>";
+	
+	echo "<span>";
+	echo var_dump(validarTipoDato($temp, 'Numerico', 9));
+	echo "</span>";
 }
 ?>

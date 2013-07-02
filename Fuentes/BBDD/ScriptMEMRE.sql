@@ -3,18 +3,18 @@
 /* Created on:     09-06-2013 19:11:48                          */
 /*==============================================================*/
 
+drop table if exists TMM_PROGRAMACION;
+
+drop table if exists TMM_INICIATIVA;
 
 drop table if exists TMM_ETAPA;
 
 drop table if exists TMM_FUENTE;
 
-drop table if exists TMM_INICIATIVA;
-
-drop table if exists TMM_PROGRAMACION;
+drop table if exists TMM_UNIDAD_TECNICA;
 
 drop table if exists TMM_TEMPORAL;
 
-drop table if exists TMM_UNIDAD_TECNICA;
 
 /*==============================================================*/
 /* Table: TMM_ETAPA                                             */
@@ -49,6 +49,7 @@ create table TMM_INICIATIVA
    INI_ANNO             int,
    INI_PROYECTO         varchar(4000),
    INI_CLASIFICADOR     int,
+   INI_MONTO            bigint,
    primary key (INI_ID)
 );
 
@@ -84,7 +85,7 @@ create table TMM_TEMPORAL
    TEM_NOMBRE           varchar(255),
    TEM_ANNO             int,
    TEM_BIP              int,
-   TEM_FUENTE           varchar(4),
+   TEM_FUENTE           varchar(10),
    TEM_ETAPA            varchar(255),
    TEM_CUENTA           bigint,
    TEM_ENERO            bigint,
@@ -101,7 +102,7 @@ create table TMM_TEMPORAL
    TEM_DICIEMBRE        bigint,
    TEM_UNI_TEC          varchar(255),
    TEM_NUMERO_COLUMNA   bigint,
-   TEM_ERRORES          varchar(5000)
+   TEM_ERRORES          varchar(5000),
    primary key (HIS_ID)
 );
 

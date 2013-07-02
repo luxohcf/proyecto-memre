@@ -54,11 +54,7 @@ if ($cleanupTargetDir) {
         while (($file = readdir($dir)) !== false) {
             $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
             @unlink($tmpfilePath);
-
-            // Remove temp file if it is older than the max age and is not the current file
-            //if (preg_match('/\.part$/', $file) && (filemtime($tmpfilePath) < time() - $maxFileAge) && ($tmpfilePath != "{$filePath}.part")) {
-            //    @unlink($tmpfilePath);
-            //}
+            // Elimino todos los archivos antiguos
         }
         closedir($dir);
     } else {

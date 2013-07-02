@@ -4,17 +4,17 @@ $(function() {
 	
 	$( "#btRegUsub" ).button();
 	$( "#btRegUsuGrabar" ).button();
-	$( "#btRegUsue" ).button();
+	//$( "#btRegUsue" ).button();
 	$( "#btRegUsuLimpiar" ).button();
-	$( "#btRegUsuPerfiles" ).button();
+	//$( "#btRegUsuPerfiles" ).button();
 	
-	$( "#FormRegUsuFecNac" ).datepicker({dateFormat: 'dd/mm/yy'});
-	$( "#FormRegUsuDesc" ).val('');
+	//$( "#FormRegUsuFecNac" ).datepicker({dateFormat: 'dd/mm/yy'});
+	//$( "#FormRegUsuDesc" ).val('');
 	
 	/* Select de grupos */
-	$('#FormRegUsuGrupo').load('./fuentes/Sel/Grupos.php');
+	//$('#FormRegUsuGrupo').load('./fuentes/Sel/Grupos.php');
 
-    /* Dialogo para asignación de perfiles */
+    /* Dialogo para asignación de perfiles 
 	$( '#UsuPerfiles' ).dialog({
 		autoOpen: false,
 		width: 600,
@@ -41,7 +41,7 @@ $(function() {
 	        "Cancelar" : function() {
 	          $(this).dialog("close");
         	}}
-	});
+	});*/
 	
 	/* Dialogo de confirmación para guardar */
 	$( '#confirmG' ).dialog({
@@ -52,10 +52,14 @@ $(function() {
 		resizable: false,
 		buttons : {
 	        "Confirmar" : function() {
-	           $.post("fuentes/GrabarUsuario.php", $('#FormRegUsu').serialize(),
+	           $.post("./GrabarEtapa.php", $('#FormRegUsu').serialize(),
 					   function(data) {
 					   	var obj = jQuery.parseJSON(data);
-	
+					   	if(obj.estado == 'OK'){
+					   		$( "#FormRegUsuIDUsu" ).val("");
+	 						$( "#FormRegUsuNomUsu" ).val("");	
+					   	}
+						
 				   		$('#dMsg').html( obj.html );
 				   		$('#FormIniSesErr').dialog( "open" );
 				   		oTabUsu.fnReloadAjax();
@@ -68,7 +72,7 @@ $(function() {
         	}}
 	});
 
-	/* Dialogo de confirmación para Eliminar */
+	/* Dialogo de confirmación para Eliminar 
 	$( '#confirmB' ).dialog({
 		autoOpen: false,
 		width: 300,
@@ -78,7 +82,7 @@ $(function() {
 		buttons : {
 	        "Confirmar" : function() {
 	           
-	           $.post("fuentes/EliminarUsuario.php", $('#FormRegUsu').serialize(),
+	           $.post("./EliminarUsuario.php", $('#FormRegUsu').serialize(),
 					   function(data) {
 					   	var obj = jQuery.parseJSON(data);
 
@@ -87,13 +91,7 @@ $(function() {
 				   		fRU.resetForm();
 					 	$( "#FormRegUsuIDUsu" ).val("");
 					 	$( "#FormRegUsuNomUsu" ).val("");
-					 	$( "#FormRegUsuEmail" ).val("");
-					 	$( "#FormRegUsuGrupo" ).val(0);
-					 	$( "#FormRegUsuFecNac" ).val("");
-					 	$( "#FormRegUsuActivo" ).attr('checked', false);
-					 	$( "#FormRegUsuPass1" ).val("");
-					 	$( "#FormRegUsuPass2" ).val("");
-					 	$( "#FormRegUsuDesc" ).val("");
+
 					 	oTabUsu.$('tr.row_selected').removeClass('row_selected');
 				   		oTabUsu.fnReloadAjax();
 					   });
@@ -102,41 +100,27 @@ $(function() {
 	        "Cancelar" : function() {
 	          $(this).dialog("close");
         	}}
-	});
+	});*/
 
 	/* Validaciones del formulario */
 	var fRU = $( '#FormRegUsu').validate({
                 rules: {
                     FormRegUsuIDUsu: {required: true,
-                    					 minlength: 5,
-                    					 maxlength: 20},
+                    					digits: true,
+                    					 minlength: 1,
+                    					 maxlength: 10},
                     FormRegUsuNomUsu: {required: true, 
-										 minlength: 5,
-                    					 maxlength: 150},
-                    FormRegUsuEmail: {required: true, 
-                    				   email: true,
-                    				   maxlength: 100},
-                    FormRegUsuPass1: {required: true,
-                    				   minlength: 6},
-                    FormRegUsuPass2: {required: true,
-                    				   equalTo: "#FormRegUsuPass1"},
-                    FormRegUsuFecNac: {required: true}
+										 minlength: 1,
+                    					 maxlength: 255}
                 },
                 messages: {
                     FormRegUsuIDUsu: {required: "",
+                                         digits: "",
                     					 minlength: "",
                     					 maxlength: ""},
                     FormRegUsuNomUsu: {required: "",
                     					 minlength: "",
-                    					 maxlength: ""},
-                    FormRegUsuEmail: {required: "", 
-                    				   email: "",
-                    				   maxlength: ""},
-                    FormRegUsuPass1: {required: "",
-                    				   minlength: ""},
-                    FormRegUsuPass2: {required: "",
-                    				   equalTo: ""},
-                    FormRegUsuFecNac: {required: ""}
+                    					 maxlength: ""}
                 }
          });
 	
@@ -167,7 +151,7 @@ $(function() {
 	        },
 	     "bProcessing": true, //para procesar desde servidor
 	     "sServerMethod": "POST",
-	     "sAjaxSource": './fuentes/BuscaUsuarios.php', // fuente del json
+	     "sAjaxSource": './BuscaEtapas.php', // fuente del json
 	     "fnServerData": function ( sSource, aoData, fnCallback ) { // Para buscar con el boton
             $.ajax( {
                 "dataType": 'json', 
@@ -198,14 +182,6 @@ $(function() {
 		    //oTabUsu.fnDeleteRow(iPos);//delete row
 		    $("#FormRegUsuIDUsu").val(aData[0]);
 		    $("#FormRegUsuNomUsu").val(aData[1]);
-		    $("#FormRegUsuEmail").val(aData[2]);
-		    $("#FormRegUsuGrupo").val(aData[3]);
-		    $("#FormRegUsuFecNac").val(aData[4]);
-		    if(aData[5] == "Activo") $("#FormRegUsuActivo").attr('checked', true);
-		    else $("#FormRegUsuActivo").attr('checked', false);
-		    $("#FormRegUsuPass1").val(aData[6]);
-		    $("#FormRegUsuPass2").val(aData[6]);
-		    $("#FormRegUsuDesc").val(aData[7]);
 		}});
 	
     /* Boton para limpiar */
@@ -213,13 +189,6 @@ $(function() {
     	fRU.resetForm();
 	 	$( "#FormRegUsuIDUsu" ).val("");
 	 	$( "#FormRegUsuNomUsu" ).val("");
-	 	$( "#FormRegUsuEmail" ).val("");
-	 	$( "#FormRegUsuGrupo" ).val(0);
-	 	$( "#FormRegUsuFecNac" ).val("");
-	 	$( "#FormRegUsuActivo" ).attr('checked', false);
-	 	$( "#FormRegUsuPass1" ).val("");
-	 	$( "#FormRegUsuPass2" ).val("");
-	 	$( "#FormRegUsuDesc" ).val("");
 	 	oTabUsu.$('tr.row_selected').removeClass('row_selected');
 	 	oTabUsu.fnReloadAjax();
 	});
@@ -243,7 +212,7 @@ $(function() {
 	    }
     });
 
-    /* Boton para eliminar */
+    /* Boton para eliminar 
     $( "#btRegUsue" ).button().click( function() {
 
      	if($('#FormRegUsuIDUsu').val() != '')
@@ -255,9 +224,9 @@ $(function() {
 	   		$('#dMsg').html( 'Debe especificar un elemento para eliminar' );
 	   		$('#FormIniSesErr').dialog( "open" );
 	    }
-    });
+    }); */
 
-    /* Boton para asignar perfiles a un usuario */
+    /* Boton para asignar perfiles a un usuario 
     $( "#btRegUsuPerfiles" ).button().click( function() {
 
      	if($('#FormRegUsuIDUsu').val() != '')
@@ -275,14 +244,14 @@ $(function() {
 	   		$('#dMsg').html( 'Debe especificar un usuario' );
 	   		$('#FormIniSesErr').dialog( "open" );
 	    }
-    });
+    });*/
 });
-
+/*
 $(function() {
   var oTable = $('#table_id').dataTable();
    
   // Hide the second column after initialisation
   oTable.fnSetColumnVis( 6, false );
   oTable.fnSetColumnVis( 7, false );
-} );
+} );*/
 

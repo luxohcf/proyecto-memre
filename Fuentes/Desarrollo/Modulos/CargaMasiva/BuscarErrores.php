@@ -27,6 +27,14 @@ if($mySqli->affected_rows > 0)
     }
 }
 
+$errores = explode("#", $msg);
+$msg = "<div><ul>";
+foreach ($errores as $value) {
+	//$msg .= "<li><img src='../../css/nocheck.png' >&nbsp;".$value."</li>";
+	$msg .= "<li>&nbsp;".$value."</li>";
+}
+$msg .= "</ul></div>";
+
 if($depurar == TRUE)
 {
     $data["html"] = "$msg";
