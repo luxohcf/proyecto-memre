@@ -29,7 +29,7 @@ $(function() {
 	        max_file_count:1,
 	        multiple_queues : false,
 	        filters : [
-	            {title : "Excel files", extensions : "xls,xlsx"}
+	            {title : "Excel files", extensions : "xls"}
 	        ]
 	    });
 		
