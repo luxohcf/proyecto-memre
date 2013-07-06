@@ -19,9 +19,6 @@ require("../../config/parametros.php");
         @import "../../css/DT/demo_table_jui.css";
         @import "../../css/DT/jquery.dataTables_themeroller.css";
     </style>
-    <!-- validate Plugin 
-    <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../../js/additional-methods.min.js"></script> -->
 
     <!-- Load plupload and all it's runtimes and finally the jQuery UI queue widget --> 
     <style type="text/css">@import url(../../js/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css);</style>
