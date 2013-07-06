@@ -24,7 +24,7 @@ function exception_handler($exception) {
   fclose($fp);
 }
 
-set_exception_handler('exception_handler');
+//set_exception_handler('exception_handler');
 
 //throw new Exception("Error Processing Request", 1);
 
