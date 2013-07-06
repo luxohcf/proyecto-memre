@@ -4,8 +4,8 @@
 	<User>memre</User>
 	<Password>memre</Password>
 	<BBDD>memre</BBDD>
-	<depurarSQL>1</depurarSQL>
-	<depurarDUMP>1</depurarDUMP>
+	<depurarSQL>0</depurarSQL>
+	<depurarDUMP>0</depurarDUMP>
 	<rutaExcel>./archivos</rutaExcel>
 	<COL_FUENTE>FUENTE</COL_FUENTE>
 	<COL_BIP>BIP</COL_BIP>

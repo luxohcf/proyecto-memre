@@ -71,6 +71,8 @@ function validarTipoDato($dato,$tipo,$longitud){
     
     return $flag;
 }
+
+
 $depurar = false;
 
 if($depurar){

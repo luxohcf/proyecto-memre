@@ -6,8 +6,27 @@ require_once("comunes.php");
 /* Archivo de configuracion */
 //$url = $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
 $url = "http://".$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+// Aqui se debe definir bien la ruta del fichero de configuracion
 $sXmlConfig = "$url/proyecto-memre/Fuentes/Desarrollo/config/Config.xml";;
 $xml = simplexml_load_file($sXmlConfig);
+
+// Funcion para registrar las excepciones de la aplicacion en un fichero de log
+function exception_handler($exception) {
+
+  $fp = fopen("log.txt","a+");
+  fwrite($fp, "*******************************************".PHP_EOL);
+  fwrite($fp, date("Y-m-d H:i:s").PHP_EOL);
+  fwrite($fp, "Fichero : ".$exception->getFile().PHP_EOL);
+  fwrite($fp, "Linea   : ".$exception->getLine().PHP_EOL);
+  fwrite($fp, "Mensaje : ".$exception->getMessage().PHP_EOL);
+  fwrite($fp, $exception->getTraceAsString().PHP_EOL);
+  fwrite($fp, "*******************************************".PHP_EOL);
+  fclose($fp);
+}
+
+set_exception_handler('exception_handler');
+
+//throw new Exception("Error Processing Request", 1);
 
 
 /* Variables de base de datos */

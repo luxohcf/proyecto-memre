@@ -10,10 +10,9 @@ require("../../config/parametros.php");
     <link href="../../css/dark-hive/jquery-ui-1.9.1.custom.css" rel="stylesheet">
     <link href="../../css/estilos.css" rel="stylesheet">
     <link href="../../css/Mant/Etapa.css" rel="stylesheet">
-    <!--<link href="../../css/Mant/Perfil.css" rel="stylesheet">
-    <link href="../../css/Mant/Recurso.css" rel="stylesheet">
-    <link href="../../css/Mant/Accion.css" rel="stylesheet">
-    <link href="../../css/Mant/Permiso.css" rel="stylesheet"> -->
+    <link href="../../css/Mant/UnidadTecnica.css" rel="stylesheet">
+    <link href="../../css/Mant/Fuente.css" rel="stylesheet">
+    <!-- JQuery -->
     <script src="../../js/jquery-1.8.2.js"></script>
     <script src="../../js/jquery-ui-1.9.1.custom.js"></script>
     <!-- JScrollable -->
@@ -38,10 +37,8 @@ require("../../config/parametros.php");
     <!-- Funciones de la pagina -->
     <script type="text/javascript" src="../../js/funcionesMain.js"></script>
     <script type="text/javascript" src="../../js/Mant/Etapa.js"></script>
-    <!--<script type="text/javascript" src="../../js/Mant/Perfil.js"></script>
-    <script type="text/javascript" src="../../js/Mant/Recurso.js"></script>
-    <script type="text/javascript" src="../../js/Mant/Accion.js"></script>
-    <script type="text/javascript" src="../../js/Mant/Permiso.js"></script> -->
+    <script type="text/javascript" src="../../js/Mant/UnidadTecnica.js"></script>
+    <script type="text/javascript" src="../../js/Mant/Fuente.js"></script>
 </head>
 <body>
 <div id="principal">
@@ -72,22 +69,19 @@ require("../../config/parametros.php");
                             <div id="datosFormRegUsu">
                                 <table id="tablaMUsuario">
                                     <tr>
-                                        <td><p>ID Etapa</p></td>
-                                        <td><input id="FormRegUsuIDUsu" name="FormRegUsuIDUsu" type="text" /></td>
                                         <td><p>&nbsp; Nombre Etapa      </p></td>
                                         <td><input id="FormRegUsuNomUsu" name="FormRegUsuNomUsu" type="text" /></td>
                                     </tr>
                                 </table>
                             </div>
+                            <input id="FormRegUsuIDUsu" name="FormRegUsuIDUsu" type="text" style="display: none" />
                             </form>
                             <div>&nbsp;</div>
                             <div>&nbsp;</div>
                             <div id="botonesFormRegMUsu">
                                 <input type="button" id="btRegUsub"  value="Buscar" />
                                 <input type="button" id="btRegUsuGrabar"  value="Grabar" />
-                                <!-- <input type="button" id="btRegUsue"  value="Eliminar" /> -->
                                 <input type="button" id="btRegUsuLimpiar" value="Limpiar" />
-                                <!--<input type="button" id="btRegUsuPerfiles" value="Perfiles" /> -->
                             </div>
                             <div id="contTabla">
                                 <table id="table_id">
@@ -110,40 +104,26 @@ require("../../config/parametros.php");
                             <div id="datosFormRegPerfiles">
                                 <table id="tablaMPerfiles">
                                 <tr>
-                                    <td><p>ID Perfil</p></td>
-                                    <td><input id="FormRegPerIDPer" name="FormRegPerIDPer" type="text" /></td>
-                                    <td><p>&nbsp; Nombre Perfil      </p></td>
+                                    <td><p>&nbsp; Nombre Unidad Tecnica      </p></td>
                                     <td><input id="FormRegPerNomPer" name="FormRegPerNomPer" type="text" /></td>
-                                </tr>
-                                <tr>
-                                    <td><p>&nbsp; Activo </p></td>
-                                    <td><input id="FormRegPerActivo" name="FormRegPerActivo" type="checkbox" /></td>
-                                </tr>
-                                <tr >
-                                    <td><p>Descripción </p></td>
-                                    <td colspan="3"><textarea id="FormRegPerDesc" name="FormRegPerDesc" > </textarea></td>
-                                </tr>
-                                <tr>
                                 </tr>
                                 </table>
                             </div>
+                            <input id="FormRegPerIDPer" name="FormRegPerIDPer" type="text" style="display: none" />
                             </form>
-                            <br>
+                            <div>&nbsp;</div>
+                            <div>&nbsp;</div>
                             <div id="botonesFormRegMPer">
                                 <input type="button" id="btRegPerB"  value="Buscar" />
                                 <input type="button" id="btRegPerG"  value="Grabar" />
-                                <input type="button" id="btRegPerE"  value="Eliminar" />
                                 <input type="button" id="btRegPerL"  value="Limpiar" />
                             </div>
                             <div id="contTablaPer">
                                 <table id="tablaPerfiles">
                                 <thead>
                                     <tr>
-                                        <th>ID Perfil</th>
-                                        <th>Nombre</th>
-                                        <th>Fecha Registro</th>
-                                        <th>Activo</th>
-                                        <th>Descripción</th>
+                                        <th>ID Unidad Tecnica</th>
+                                        <th>Nombre Unidad Tecnica</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,40 +139,26 @@ require("../../config/parametros.php");
                             <div id="datosFormRegRecursos">
                                 <table id="tablaMRecursos">
                                 <tr>
-                                    <td><p>ID Recurso</p></td>
-                                    <td><input id="FormRegRecIDRec" name="FormRegRecIDRec" type="text" /></td>
-                                    <td><p>&nbsp; Nombre Recurso      </p></td>
+                                    <td><p>&nbsp; Nombre Fuente      </p></td>
                                     <td><input id="FormRegRecNomRec" name="FormRegRecNomRec" type="text" /></td>
-                                </tr>
-                                <tr>
-                                    <td><p>&nbsp; Activo </p></td>
-                                    <td><input id="FormRegRecActivo" name="FormRegRecActivo" type="checkbox" /></td>
-                                </tr>
-                                <tr >
-                                    <td><p>Descripción </p></td>
-                                    <td colspan="3"><textarea id="FormRegRecDesc" name="FormRegRecDesc" > </textarea></td>
-                                </tr>
-                                <tr>
                                 </tr>
                                 </table>
                             </div>
+                            <input id="FormRegRecIDRec" name="FormRegRecIDRec" type="text" style="display: none" />
                             </form>
-                            <br>
+                            <div>&nbsp;</div>
+                            <div>&nbsp;</div>
                             <div id="botonesFormRegMRec">
                                 <input type="button" id="btRegRecB"  value="Buscar" />
                                 <input type="button" id="btRegRecG"  value="Grabar" />
-                                <input type="button" id="btRegRecE"  value="Eliminar" />
                                 <input type="button" id="btRegRecL"  value="Limpiar" />
                             </div>
                             <div id="contTablaRec">
                                 <table id="tablaRecursos">
                                 <thead>
                                     <tr>
-                                        <th>ID Recurso</th>
-                                        <th>Nombre</th>
-                                        <th>Fecha Registro</th>
-                                        <th>Activo</th>
-                                        <th>Descripción</th>
+                                        <th>ID Fuente</th>
+                                        <th>Nombre Fuente</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -202,9 +168,6 @@ require("../../config/parametros.php");
                          </div>
                         </div>
                 </div>
-                
-                
-                
            </div>
          </td>
         </tr>
@@ -218,15 +181,11 @@ require("../../config/parametros.php");
         Desarrollado por Luis Lizama
     </div>
 </div>
+<!-- Paneles -->
 <div id="FormIniSesErr">
-        <div id="dMsg">
-        </div>
-</div>
-<form id="FormUsuPerfiles">
-    <div id="UsuPerfiles">
-        
+    <div id="dMsg">
     </div>
-</form>
+</div>
 
 <div id="dvLoading" class="modal" style="text-align: center">
     <p>Espere un momento mientras se realiza la acción</p>
@@ -234,35 +193,15 @@ require("../../config/parametros.php");
     <img src="../../css/ajax-loader.gif" />
 </div>
 
-<div id="confirmB">
-    ¿Seguro que desea eliminar el registro?
-</div>
 <div id="confirmG">
     ¿Seguro que desea guardar el registro?
-</div>
-<div id="confirmPerE">
-    ¿Seguro que desea eliminar el registro?
 </div>
 <div id="confirmPerG">
     ¿Seguro que desea guardar el registro?
 </div>
-<div id="confirmRecE">
-    ¿Seguro que desea eliminar el registro?
-</div>
 <div id="confirmRecG">
     ¿Seguro que desea guardar el registro?
 </div>
-<div id="confirmAccE">
-    ¿Seguro que desea eliminar el registro?
-</div>
-<div id="confirmAccG">
-    ¿Seguro que desea guardar el registro?
-</div>
-<div id="confirmPermB">
-    ¿Seguro que desea eliminar el registro?
-</div>
-<div id="confirmPermG">
-    ¿Seguro que desea guardar el registro?
-</div>
+
 </body>
 </html>

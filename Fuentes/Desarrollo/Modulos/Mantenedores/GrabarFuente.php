@@ -5,8 +5,8 @@ $data = array();
 $aErrores = array();
 $msg = "";
 
-$idUsu = (isset($_POST['FormRegUsuIDUsu']))?$_POST['FormRegUsuIDUsu']:NULL;
-$nmUsu = (isset($_POST['FormRegUsuNomUsu']))?$_POST['FormRegUsuNomUsu']:NULL;
+$idUsu = (isset($_POST['FormRegRecIDRec']))?$_POST['FormRegRecIDRec']:NULL;
+$nmUsu = (isset($_POST['FormRegRecNomRec']))?$_POST['FormRegRecNomRec']:NULL;
 
 $mySqli = new mysqli($V_HOST, $V_USER, $V_PASS, $V_BBDD);
 if($mySqli->connect_errno)
@@ -16,7 +16,7 @@ if($mySqli->connect_errno)
 //$mySqli->query("SET CHARSET 'utf8'");
 
 if(strlen($idUsu) > 0){ // Si no es nulo entonces valido el insert-update
-	$querySelect = "SELECT 1 FROM TMM_ETAPA WHERE ETA_ID = $idUsu ";
+	$querySelect = "SELECT 1 FROM TMM_FUENTE WHERE FUE_ID = $idUsu ";
 	$res = $mySqli->query($querySelect);
 	
 	if($mySqli->affected_rows == 0) // Insert
@@ -26,7 +26,7 @@ if(strlen($idUsu) > 0){ // Si no es nulo entonces valido el insert-update
 	    $mySqli->query("SET NAMES 'utf8'");
 	    $mySqli->query("SET CHARACTER SET 'utf8'");
 	    
-	    $queryInsUsu = "INSERT INTO TMM_ETAPA (ETA_NOMBRE) VALUES ('$nmUsu')";
+	    $queryInsUsu = "INSERT INTO TMM_FUENTE (FUE_NOMBRE) VALUES ('$nmUsu')";
 	
 	    $res = $mySqli->query($queryInsUsu);
 	    if($mySqli->affected_rows > 0)
@@ -46,7 +46,7 @@ if(strlen($idUsu) > 0){ // Si no es nulo entonces valido el insert-update
 	else // Update 
 	{
 		
-		$querySelect = "SELECT 1 FROM TMM_ETAPA WHERE ETA_NOMBRE = '$nmUsu'";
+		$querySelect = "SELECT 1 FROM TMM_FUENTE WHERE FUE_NOMBRE = '$nmUsu'";
 		$res = $mySqli->query($querySelect);
 		
 		if($mySqli->affected_rows == 0) // No existe el nombre
@@ -55,9 +55,9 @@ if(strlen($idUsu) > 0){ // Si no es nulo entonces valido el insert-update
 		    $mySqli->query("SET NAMES 'utf8'");
 		    $mySqli->query("SET CHARACTER SET 'utf8'");
 
-		    $queryUpdUsu = "UPDATE TMM_ETAPA SET
-		                        ETA_NOMBRE  = '$nmUsu'
-		                        WHERE ETA_ID = $idUsu";
+		    $queryUpdUsu = "UPDATE TMM_FUENTE SET
+		                        FUE_NOMBRE  = '$nmUsu'
+		                        WHERE FUE_ID = $idUsu";
 		    
 		    $res = $mySqli->query($queryUpdUsu);
 		    
@@ -85,14 +85,14 @@ if(strlen($idUsu) > 0){ // Si no es nulo entonces valido el insert-update
 		    }
 		}
 		else{
-			$msg = "Ya existe la etapa $nmUsu";
+			$msg = "Ya existe la fuente $nmUsu";
 			$data["estado"] = "KO";
 		}
 	}
 }
 else{ // Valido que no exista el nombre
 
-	$querySelect = "SELECT 1 FROM TMM_ETAPA WHERE ETA_NOMBRE = '$nmUsu'";
+	$querySelect = "SELECT 1 FROM TMM_FUENTE WHERE FUE_NOMBRE = '$nmUsu'";
 	$res = $mySqli->query($querySelect);
 	
 	if($mySqli->affected_rows == 0) // Insert
@@ -102,7 +102,7 @@ else{ // Valido que no exista el nombre
 	    $mySqli->query("SET NAMES 'utf8'");
 	    $mySqli->query("SET CHARACTER SET 'utf8'");
 	    
-	    $queryInsUsu = "INSERT INTO TMM_ETAPA (ETA_NOMBRE) VALUES ('$nmUsu')";
+	    $queryInsUsu = "INSERT INTO TMM_FUENTE (FUE_NOMBRE) VALUES ('$nmUsu')";
 	
 	    $res = $mySqli->query($queryInsUsu);
 	    if($mySqli->affected_rows > 0)
@@ -120,7 +120,7 @@ else{ // Valido que no exista el nombre
 	    }
 	}
 	else{
-		$msg = "Ya existe la etapa $nmUsu";
+		$msg = "Ya existe la fuente $nmUsu";
 		$data["estado"] = "KO";
 	}
 }
