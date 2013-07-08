@@ -21,5 +21,6 @@ plupload.addI18n({
 	'Stop Upload': 'Detener Subida.',
 	'Add Files': 'Agregar Archivo',
 	'Start Upload': 'Cargar.',
-	'%d files queued': '%d archivos en cola.'
+	'%d files queued': '%d archivos en cola.',
+	'Upload element accepts only %d file(s) at a time. Extra files were stripped.': 'Solo se acepta cargar %d archivo a la vez.'
 });
